@@ -20,7 +20,7 @@ main {
     align-items: center;
 }
 
-h1 {
+.title h1 {
     margin-left: 80px;
     color: #FFF;
     font-family: 'Fredoka One', cursive;
@@ -44,7 +44,7 @@ h1 {
     margin: 30px;
 }
 
-button {
+.button-space button {
     padding: 20px 80px;
     font-size: 18px;
     background-color: rgba(0,0,0,0);
@@ -54,10 +54,90 @@ button {
     border-radius: 15px;
     font-family: 'Fredoka One', cursive;
     outline: none;
+    width: 300px;
 }
 
-button:hover {
+.button-space button:hover {
     background-color: #E2025B;
     cursor: pointer;
     transform: scale(1.1);
+}
+
+
+/*CHARACTER STYLE*/ 
+
+section {
+    background-color: #000;
+    width: 100vw;
+    height: 100vh;
+}
+.select {
+    display: flex;
+    justify-content: center;
+}
+
+.back {
+    position: absolute;
+    left: 20px;
+    top: 30px;
+}
+
+i {
+    font-size: 50px;
+    font-family: 'Fredoka One', cursive;
+    color: #E2025B;
+}
+
+i:hover {
+    cursor: pointer;
+    font-size: 55px;
+}
+
+
+.select h1 {
+    font-family: 'Fredoka One', cursive;
+    margin: 20px 0;
+    font-size: 60px;
+    color: #000;
+    text-shadow: 2px 0 0 #E2025B, -2px 0 0 #E2025B, 0 2px 0 #E2025B, 0 -2px 0 #E2025B, 1px 1px #E2025B, -1px -1px 0 #E2025B, 1px -1px 0 #E2025B, -1px 1px 0 #E2025B;
+}
+
+.characters {
+    background-image: url(/assets/characters-stonesHunting.jpg);
+    height: 80%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    margin-top: 20px;
+}
+
+.rocket {
+    background-color: rgba(0,0,0,0.7);
+    height: 100%;
+    width: 16.5%;
+    margin-left: 240px;
+}
+
+.quill {
+    background-color: rgba(0,0,0,0.7);
+    height: 100%;
+    width: 16.5%;
+}
+
+.gamora {
+    background-color: rgba(0,0,0,0.7);
+    height: 100%;
+    width: 16.5%;
+}
+
+.drax {
+    background-color: rgba(0,0,0,0.7);
+    height: 100%;
+    width: 17%;
+}
+
+.person:hover {
+    background-color: rgba(0,0,0,0);
+    cursor: pointer;
 }
