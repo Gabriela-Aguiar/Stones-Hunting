@@ -61,12 +61,13 @@ main {
     background-color: #E2025B;
     cursor: pointer;
     transform: scale(1.1);
+    border: 1px solid #FFF; 
 }
 
 
 /*CHARACTER STYLE*/ 
 
-section {
+.section {
     background-color: #000;
     width: 100vw;
     height: 100vh;
@@ -141,3 +142,24 @@ i:hover {
     background-color: rgba(0,0,0,0);
     cursor: pointer;
 }
+
+/* MAP SECTION*/
+
+.map {
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    background-image: url(/assets/galaxy-stonesHunting.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.teste {
+    background-color: #FFF;
+}
+
+.no-show {
+    display: none;
+}
+

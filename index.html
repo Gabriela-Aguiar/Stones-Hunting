@@ -6,19 +6,48 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Stones Hunting</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/08cc4f275d.js" crossorigin="anonymous"></script>
+
 </head>
 <body>
-    <main>
+    <main id="first">
         <div class="title">
             <h1>STONES <br>HUNTING</h1>
         </div>
         <div class="buttons">
             <div class="button-space">
-               <a href="/character.html"><button>START</button></a> 
-                <button>SCORES</button>
+               <button onclick="step('first', 'second')">START</button>
+               <button>SCORES</button>
             </div>
         </div>
     </main>
+    <section id="second" class="section no-show">
+            <div class="select">
+                 <div class="back" onclick="step('second','first')">
+                    <i class="fas fa-arrow-circle-left"></i>
+                 </div>
+                <div>
+                    <h1>SELECT YOUR CHARACTER</h1>
+                </div>
+            </div>
+            <div class="characters">
+                <div class="rocket person" onclick="character('rocket')"></div>
+                <div class="quill person" onclick="character('quill')"></div>
+                <div class="gamora person" onclick="character('gamora')"></div>
+                <div class="drax person" onclick="character('drax')"></div>
+            </div>
+        </section>
+        <section id="third" class="map no-show">
+                <div>
+                    <div>
+                         <div class="back" onclick="step('third','second')">
+                            <i class="fas fa-arrow-circle-left"></i>
+                         </div>
+                    </div>
+                    <div></div>
+                </div>
+                <div></div>
+            </section>
     <script src="index.js"></script>
 </body>
 </html>
