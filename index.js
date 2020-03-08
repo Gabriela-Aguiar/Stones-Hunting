@@ -48,3 +48,9 @@ const characterSelected = () => {
 }
 
 characterSelected()
+
+const stoneSelected = (stone) => {
+    console.log(stone)
+    localStorage.setItem('stone', stone)
+    window.location.href = "/game.html"
+}
