@@ -1,0 +1,42 @@
+@font-face{
+    font-family: "Fredoka One";
+    src: url('./assets/FredokaOne-Regular.ttf');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.principal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+}
+
+.actions{
+    position: absolute;
+    top: 20px;
+    right: 15px;
+}
+
+.actions button{
+    padding: 10px;
+    border: 2px solid #E2025B;
+    border-radius: 15px;
+    font-family: 'Fredoka One', cursive;
+    outline: none;
+    background-color: #000;
+    color: #E2025B;
+    font-size: 20px;
+}
+
+.actions button:hover{
+    cursor: pointer;
+    background-color: #E2025B;
+    border: 2px solid #FFF;
+    color: #FFF
+}
