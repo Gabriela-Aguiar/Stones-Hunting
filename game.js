@@ -1,6 +1,12 @@
 const principalSpace = document.getElementById('principal')
 
 
+
+
+const hero = new Hero({x:100, y:650, width:100, height:100, strength:100, health:100, characterimg:'/assets/Gamoracard.png'})
+
+console.log(hero)
+
 const myGameArea = {
     canvas: document.createElement("canvas"),
     start: function() {
@@ -23,6 +29,7 @@ const myGameArea = {
             myGameArea.drawThanosLife()
             myGameArea.drawTime()
             myGameArea.drawCharacter()
+
         };
         img.src = 'assets/planet1.jpg';
     },
@@ -65,14 +72,16 @@ const myGameArea = {
         this.context.fillText('Score:', 120, 180);
     },
     drawCharacter: function(){
-        this.context.fillStyle = 'green';
-        this.context.fillRect(120,650, 30, 100);
-        // const img = new Image();
-        //     img.onload = () => {
-        //     this.context.drawImage(img, 0, 0, 140,70);
-        // }
-        // img.src = 'assets/Rocketcard.png';
+        // this.context.fillStyle = 'green';
+        // this.context.fillRect(120,650, 30, 100);
+        const img = new Image();
+        img.onload = () => {
+            this.context.drawImage(img, hero.x, hero.y, hero.width,hero.height);
+        }
+        img.src = hero.characterimg;
+        console.log(hero.x, hero.y, hero.width, hero.height)
     },
+    
     // this.context.fillStyle = 'green';
     // this.context.fillRect(120,100, 300, 40);
     // this.context.fillStyle = 'green';
@@ -87,5 +96,3 @@ const myGameArea = {
 myGameArea.start()
 myGameArea.drawBackground()
 
-
-console.log( harland )

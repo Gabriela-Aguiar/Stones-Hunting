@@ -1,12 +1,13 @@
 class Character {
     constructor(values) {
-    let { x, y, width, height, strength, health} = values;
+    let { x, y, width, height, strength, health, characterimg} = values;
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
     this.strength = strength;
     this.health = health;
+    this.characterimg = characterimg;
     }
     damage(damage){
         
