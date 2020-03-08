@@ -10,7 +10,7 @@
 
 </head>
 <body>
-    <main id="first">
+    <main id="first" class="no-show">
         <div class="title">
             <h1>STONES <br>HUNTING</h1>
         </div>
@@ -21,7 +21,7 @@
             </div>
         </div>
     </main>
-    <section id="second" class="section no-show">
+    <section id="second" class="section">
             <div class="select">
                  <div class="back" onclick="step('second','first')">
                     <i class="fas fa-arrow-circle-left"></i>
@@ -30,14 +30,14 @@
                     <h1>SELECT YOUR CHARACTER</h1>
                 </div>
                 <div class="random">
-                    <button>RANDOM <br>CHARACTER</button>
+                    <button onclick="random('random')">RANDOM <br>CHARACTER</button>
                 </div>
             </div>
             <div class="characters">
-                <div class="rocket person" onclick="character('rocket')"></div>
-                <div class="quill person" onclick="character('quill')"></div>
-                <div class="gamora person" onclick="character('gamora')"></div>
-                <div class="drax person" onclick="character('drax')"></div>
+                <div id='rocket' class="rocket person" onclick="character('rocket')"></div>
+                <div id='quill' class="quill person" onclick="character('quill')"></div>
+                <div id='gamora' class="gamora person" onclick="character('gamora')"></div>
+                <div id='drax' class="drax person" onclick="character('drax')"></div>
             </div>
         </section>
         <section id="third" class="map no-show">
@@ -56,7 +56,10 @@
                         <img src="/assets/stone.png" alt="stone" class="stone">
                     </div>
                     <div class="card">
-                        <img src="/assets/Draxcard.png" alt="">
+                        <img src="/assets/Rocketcard.png" alt="rocketcard" id="rocket-photo" >
+                        <img src="/assets/Quillcard.png" alt="quillcard" id="quill-photo" >
+                        <img src="/assets/Gamoracard.png" alt="gamoracard" id="gamora-photo" >
+                        <img src="/assets/Draxcard.png" alt="draaxcard" id="drax-photo" >
                     </div>
                 </div>
                 <div>
