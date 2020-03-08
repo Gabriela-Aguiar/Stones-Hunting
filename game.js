@@ -84,6 +84,8 @@ const myGameArea = {
 
 
 
-
 myGameArea.start()
 myGameArea.drawBackground()
+
+
+console.log( harland )
