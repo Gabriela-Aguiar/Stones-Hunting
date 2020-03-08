@@ -21,7 +21,7 @@
             </div>
         </div>
     </main>
-    <section id="second" class="section">
+    <section id="second" class="section no-show">
             <div class="select">
                  <div class="back" onclick="step('second','first')">
                     <i class="fas fa-arrow-circle-left"></i>
@@ -40,7 +40,7 @@
                 <div id='drax' class="drax person" onclick="character('drax')"></div>
             </div>
         </section>
-        <section id="third" class="map no-show">
+        <section id="third" class="map">
                 <div class="nav">
                     <div>
                          <div class="back" onclick="step('third','second')">
@@ -69,6 +69,13 @@
                     <img src="/assets/time.png" alt="time-stone" id="time" class="stone">
                     <img src="/assets/reality.png" alt="reality-stone" id="reality" class="stone">
                     <img src="/assets/power.png" alt="power-stone" id="power" class="stone">
+                    <div class="progress-space">
+                        <h1>PROGRESS</h1>
+                        <div class="progress-bar">
+                            <div id="progress"></div>
+                        </div>
+                        <p>3 / 6</p>
+                    </div>
                 </div>
             </section>
     <script src="index.js"></script>

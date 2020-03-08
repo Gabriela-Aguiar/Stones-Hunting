@@ -5,14 +5,13 @@ const step = (actual, next) => {
     document.getElementById(next).classList.remove("no-show")
 };
 
-const character = (character) => {
- console.log(character)
+const character = character => {
  localStorage.setItem('character',character)
  step('second','third')
  characterSelected()
 }
 
-const random = (random) => {
+const random = () => {
     let finalCharacter = '';
     let count = 0;
     for (i = 0; i < characters.length; i++) {
@@ -47,3 +46,5 @@ const characterSelected = () => {
         }
     }
 }
+
+characterSelected()
