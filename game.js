@@ -6,10 +6,36 @@ let srcX;
 let srcY;
 let currentFrame = 0;
 let frameHero = 0;
+let urlImage = '';
+let urlBackground = '';
+
+if(localStorage.getItem("character") == 'quill'){
+    urlImage = '/assets/starlord.png'
+} else if(localStorage.getItem("character") == 'gamora'){
+    urlImage = '/assets/gamora.png'
+} else if(localStorage.getItem("character") == 'rocket'){
+    urlImage = '/assets/rocket.png'
+} else {
+    urlImage = '/assets/drax.png'
+}
+
+if(localStorage.getItem("stone") == 'mind'){
+    urlBackground = 'assets/planet1.jpg'
+} else if(localStorage.getItem("stone") == 'soul'){
+    urlBackground = 'assets/planet4.jpg'
+} else if(localStorage.getItem("stone") == 'time'){
+    urlBackground = 'assets/planet2.jpg'
+} else if(localStorage.getItem("stone") == 'space'){
+    urlBackground = 'assets/planet6.jpeg'
+} else if(localStorage.getItem("stone") == 'reality'){
+    urlBackground = 'assets/planet5.jpeg'
+} else if (localStorage.getItem("stone") == 'power'){
+    urlBackground = 'assets/planet3.jpeg'
+}
 
 
 
-const hero = new Hero({x:80, y:550, width:200, height:200, strength:5, health:10, characterimg:'/assets/starlord.png', type:'hero'})
+const hero = new Hero({x:80, y:550, width:200, height:200, strength:5, health:10, characterimg:urlImage, type:'hero', name:localStorage.getItem("character")})
 const thanos = new Character ({x:1350, y:450, width:200, height:300, strength: 10, health: 100, characterimg:'/assets/Thanos.5.png', name: 'Thanos', type:'boss'});
 
 
@@ -19,8 +45,8 @@ const myGameArea = {
     canvas: document.createElement("canvas"),
     frames: 0,
     time: 0,
+    score: 0,
     start: function() {
-        // console.log( this.canvas )
         this.canvas.width = 1420;
         this.canvas.height = 770;
         this.context = this.canvas.getContext("2d");
@@ -32,8 +58,8 @@ const myGameArea = {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     },
     stop: function() {
-        // console.log(requestID)
-        // console.log(window.cancelAnimationFrame(requestID))
+        window.cancelAnimationFrame(requestID)
+        alert('GAME OVER')
     },
     drawBackground: function(){
         const img = new Image()
@@ -49,7 +75,7 @@ const myGameArea = {
             myGameArea.drawEnemies()
 
         };
-        img.src = 'assets/planet1.jpg';
+        img.src = urlBackground;
     },
 
     drawCharacterName: function(){
@@ -89,13 +115,13 @@ const myGameArea = {
         this.context.fillText(this.time + " seconds", 600, 100);
     },
     drawScore: function(){
-        this.context.font = "25px Fredoka One";
+        this.context.font = "35px Fredoka One";
         this.context.fillStyle = "#E2025B";
-        this.context.fillText('Score:', 120, 180);
+        this.context.fillText('Score: ' + this.score, 120, 180);
     },
     drawCharacter: function( character ){
         const img = new Image();
-        console.log( requestID )
+        // console.log( requestID )
         let sY = 0
         img.onload = () => {
 
@@ -106,6 +132,21 @@ const myGameArea = {
             }
 
             if( character.type !== 'boss' ){
+                if(character.name == 'drax'){
+                    if(frameHero == 0){
+                        this.context.drawImage(img, 0,112,40,56,character.x, character.y, character.width,character.height);
+                        frameHero++
+                    }else if(frameHero == 1){
+                        this.context.drawImage(img, 40,112,40,56,character.x, character.y, character.width,character.height);
+                        frameHero++
+                    }else if(frameHero == 2){
+                        this.context.drawImage(img, 40,112,40,56,character.x, character.y, character.width,character.height);
+                        frameHero++
+                    }else{
+                        this.context.drawImage(img, 120,112,40,56,character.x, character.y, character.width,character.height);
+                        frameHero=0
+                    }
+                } else{
                 if(frameHero == 0){
                     this.context.drawImage(img, 0,sY,32,48,character.x, character.y, character.width,character.height);
                     frameHero++
@@ -119,8 +160,8 @@ const myGameArea = {
                     this.context.drawImage(img, 96,sY,32,48,character.x, character.y, character.width,character.height);
                     frameHero=0
                 }
+              }
             }else {
-
                 if(frameHero == 0){
                     this.context.drawImage(img,0,48,48,48,character.x, character.y, character.width,character.height);
                     frameHero++
@@ -139,7 +180,7 @@ const myGameArea = {
     drawEnemies: function(){
         for (let i = 0; i < enemies.length; i++){
             if(enemies[i].type === "boss"){
-                enemies[i].x = enemies[i].x-3
+                enemies[i].x = enemies[i].x-1
             }else{
                 enemies[i].x = enemies[i].x-5
             }
@@ -160,7 +201,6 @@ const myGameArea = {
 
 myGameArea.start()
 myGameArea.drawBackground()
-
 
 const time = setInterval(() => {
     myGameArea.time++ 
@@ -194,6 +234,8 @@ function updateShoot() {
     })
 }
 
+
+
 function checkCrash() {
     fire.forEach( (shoot,index) => {
         enemies.forEach( (enemy,i) => {
@@ -207,17 +249,19 @@ function checkCrash() {
                 if( shoot.x >= enemy.x ){
                     enemies.splice( i,1 )
                     fire.splice( index,1 )
+                    score = myGameArea.score++;
                 }
                 if( shoot.x > myGameArea.width ){
                     fire.splice( index,1 )
                 }
             }
-        })
+        }) 
     })
   }
 
+
 function createThanos () {
-    if(myGameArea.time === 2 && !thanosActive){
+    if(myGameArea.time === 15 && !thanosActive){
         thanosActive = true
         enemies.push( thanos )
     }
@@ -230,6 +274,7 @@ function characterCrash() {
                 hero.health -= 1;
             }else{
                 hero.health = 0;
+                console.log('HEALTH ZERO')
             }
         }
     })
