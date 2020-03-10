@@ -2,9 +2,15 @@ const principalSpace = document.getElementById('principal')
 const enemies = [];
 const fire = [];
 let thanosActive = false
+let srcX;
+let srcY;
+let currentFrame = 0;
+let frameHero = 0;
 
-const hero = new Hero({x:100, y:650, width:100, height:100, strength:5, health:10, characterimg:'/assets/Gamoracard.png'})
-const thanos = new Character ({x:1350, y:650, width:100, height:200, strength: 10, health: 100, characterimg:'/assets/Rocketcard.png', name: 'Thanos'});
+
+
+const hero = new Hero({x:80, y:550, width:200, height:200, strength:5, health:10, characterimg:'/assets/starlord.png', type:'hero'})
+const thanos = new Character ({x:1350, y:450, width:200, height:300, strength: 10, health: 100, characterimg:'/assets/Thanos.5.png', name: 'Thanos', type:'boss'});
 
 
 var requestID = null;
@@ -26,8 +32,8 @@ const myGameArea = {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     },
     stop: function() {
-        console.log(requestID)
-        console.log(window.cancelAnimationFrame(requestID))
+        // console.log(requestID)
+        // console.log(window.cancelAnimationFrame(requestID))
     },
     drawBackground: function(){
         const img = new Image()
@@ -89,16 +95,50 @@ const myGameArea = {
     },
     drawCharacter: function( character ){
         const img = new Image();
+        console.log( requestID )
+        let sY = 0
         img.onload = () => {
-            this.context.drawImage(img, character.x, character.y, character.width,character.height);
+
+            if( character.type === 'hero') {
+                sY = 96
+            } else if ( character.type === 'enemies') {
+                sY = 48
+            }
+
+            if( character.type !== 'boss' ){
+                if(frameHero == 0){
+                    this.context.drawImage(img, 0,sY,32,48,character.x, character.y, character.width,character.height);
+                    frameHero++
+                }else if(frameHero == 1){
+                    this.context.drawImage(img, 32,sY,32,48,character.x, character.y, character.width,character.height);
+                    frameHero++
+                }else if(frameHero == 2){
+                    this.context.drawImage(img, 64,sY,32,48,character.x, character.y, character.width,character.height);
+                    frameHero++
+                }else{
+                    this.context.drawImage(img, 96,sY,32,48,character.x, character.y, character.width,character.height);
+                    frameHero=0
+                }
+            }else {
+
+                if(frameHero == 0){
+                    this.context.drawImage(img,0,48,48,48,character.x, character.y, character.width,character.height);
+                    frameHero++
+                }else if(frameHero == 1){
+                    this.context.drawImage(img,48,48,48,48,character.x, character.y, character.width,character.height);
+                    frameHero++
+                }else{
+                    this.context.drawImage(img,96,48,48,48,character.x, character.y, character.width,character.height);
+                    frameHero = 0
+                }
+            }
         }
         img.src = character.characterimg;
-        // console.log(hero.x, hero.y, hero.width, hero.height)
 
     },
     drawEnemies: function(){
         for (let i = 0; i < enemies.length; i++){
-            if(enemies[i].name === "Thanos"){
+            if(enemies[i].type === "boss"){
                 enemies[i].x = enemies[i].x-3
             }else{
                 enemies[i].x = enemies[i].x-5
@@ -142,7 +182,7 @@ function updateGameArea() {
 
 function creatingEnemies() {
     if( myGameArea.frames % Math.floor(Math.random()*900) == 0){
-        const enemy = new Character ({x:1350, y:650, width:100, height:100, strength:1, health:100, characterimg:'/assets/Quillcard.png'});
+        const enemy = new Character ({x:1350, y:550, width:200, height:200, strength:1, health:100, characterimg:'/assets/alien.png', type:'enemies'});
         enemies.push(enemy)
     }
 }
@@ -157,7 +197,7 @@ function updateShoot() {
 function checkCrash() {
     fire.forEach( (shoot,index) => {
         enemies.forEach( (enemy,i) => {
-            if( enemy.name == 'Thanos' && ( shoot.x >= enemy.x  ) ){
+            if( enemy.type ==='boss' && ( shoot.x >= enemy.x  ) ){
                 thanos.health = thanos.health - hero.strength
                 fire.splice( index,1 )
                 if( thanos.health <= 0 ){
@@ -177,7 +217,7 @@ function checkCrash() {
   }
 
 function createThanos () {
-    if(myGameArea.time === 15 && !thanosActive){
+    if(myGameArea.time === 2 && !thanosActive){
         thanosActive = true
         enemies.push( thanos )
     }
@@ -186,8 +226,8 @@ function createThanos () {
 function characterCrash() {
     enemies.forEach((enemy) => {
         if(enemy.x == hero.x ){
-            if( enemy.name !== "Thanos" ){
-                hero.health -=1;
+            if( enemy.type !== "boss" ){
+                hero.health -= 1;
             }else{
                 hero.health = 0;
             }
@@ -195,11 +235,15 @@ function characterCrash() {
     })
 }
 
+function updateFrame(){
+    currentFrame = ++currentFrame % frameCount;
+    srcX = currentFrame * width;
+    srcY = 0;
+}
 
 function gameOver(){
     if (hero.health === 0) {
         myGameArea.stop();
-        // alert() 
     }
 }
 

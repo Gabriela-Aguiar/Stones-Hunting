@@ -1,6 +1,6 @@
 class Character {
     constructor(values) {
-    let { x, y, width, height, strength, health, characterimg,name} = values;
+    let { x, y, width, height, strength, health, characterimg,name,type} = values;
     this.x = x;
     this.y = y;
     this.width = width;
@@ -9,6 +9,7 @@ class Character {
     this.health = health;
     this.characterimg = characterimg;
     this.name = name;
+    this.type = type;
     }
     shoot(){
         fire.push(new Shoot())
@@ -24,8 +25,8 @@ class Hero extends Character {
 
 class Shoot {
     constructor(){
-        this.x = hero.x + 100;
-        this.y = hero.y + 50;
+        this.x = hero.x + 150;
+        this.y = hero.y + 100;
     }
 }
 
