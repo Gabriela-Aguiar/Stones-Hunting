@@ -1,7 +1,11 @@
 const principalSpace = document.getElementById('principal')
-const enemies = []
+const enemies = [];
+const fire = [];
+let thanosActive = false
 
-const hero = new Hero({x:100, y:650, width:100, height:100, strength:100, health:100, characterimg:'/assets/Gamoracard.png'})
+const hero = new Hero({x:100, y:650, width:100, height:100, strength:5, health:10, characterimg:'/assets/Gamoracard.png'})
+const thanos = new Character ({x:1350, y:650, width:100, height:200, strength: 10, health: 100, characterimg:'/assets/Rocketcard.png', name: 'Thanos'});
+
 
 var requestID = null;
 
@@ -21,9 +25,12 @@ const myGameArea = {
     clear: function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     },
+    stop: function() {
+        console.log(requestID)
+        console.log(window.cancelAnimationFrame(requestID))
+    },
     drawBackground: function(){
         const img = new Image()
-        // console.log('update');
         img.onload = () => {
             this.context.drawImage(img, 0, 0, 1420,770);
             myGameArea.drawScore()
@@ -50,22 +57,26 @@ const myGameArea = {
         this.context.fillText('THANOS', 1050, 80);
     },
     drawCharacterLife: function(){
+        if(hero.health > 0){
         this.context.beginPath();
         this.context.strokeStyle = '#0bf774'
         this.context.moveTo(120,120);
         this.context.lineWidth = 30;
         this.context.lineCap = 'round';
-        this.context.lineTo(400,120);
+        this.context.lineTo((hero.health*28)+120,120);
         this.context.stroke();
+        }
     },
     drawThanosLife: function(){
+        if(thanos.health > 0){
         this.context.beginPath();
         this.context.strokeStyle = '#0bf774'
         this.context.moveTo(970, 120);
         this.context.lineWidth = 30;
         this.context.lineCap = 'round';
-        this.context.lineTo(1250,120);
+        this.context.lineTo((thanos.health*2.8)+970,120);
         this.context.stroke();
+        }
     },
     drawTime: function(){
         this.context.font = "50px Fredoka One";
@@ -79,7 +90,6 @@ const myGameArea = {
     drawCharacter: function( character ){
         const img = new Image();
         img.onload = () => {
-            console.log('aca carga img')
             this.context.drawImage(img, character.x, character.y, character.width,character.height);
         }
         img.src = character.characterimg;
@@ -87,13 +97,25 @@ const myGameArea = {
 
     },
     drawEnemies: function(){
-        console.log('pintando los enemigos')
         for (let i = 0; i < enemies.length; i++){
-            console.log(enemies[i])
-            enemies[i].x = enemies[i].x-3
+            if(enemies[i].name === "Thanos"){
+                enemies[i].x = enemies[i].x-3
+            }else{
+                enemies[i].x = enemies[i].x-5
+            }
             myGameArea.drawCharacter( enemies[i] )
         }
-    }
+    },
+
+    drawFire: function(elem){
+        this.context.beginPath();
+        this.context.strokeStyle = 'red'
+        this.context.moveTo(elem.x, elem.y);
+        this.context.lineWidth = 5;
+        this.context.lineCap = 'round';
+        this.context.lineTo(elem.x+20, elem.y);
+        this.context.stroke();
+    },
 }
 
 myGameArea.start()
@@ -104,20 +126,79 @@ const time = setInterval(() => {
 }, 1000);
 
 function updateGameArea() {
-    // console.log('update')
+    //  console.log('time')
     //myGameArea.clear();
     myGameArea.drawBackground()
     myGameArea.frames++
-    creatingEnemies()
+    creatingEnemies();
+    updateShoot();
+    checkCrash();
+    createThanos();
+    characterCrash();
+    gameOver();
     requestID = window.requestAnimationFrame(updateGameArea);
 }
 
 function creatingEnemies() {
-    // console.log('entra pa aca')
-    if( myGameArea.frames % Math.floor(Math.random()*700) == 0  ){
-        // console.log('new enemy')
-        const enemy = new Character ({x:1200, y:650, width:100, height:100, strength:100, health:100, characterimg:'/assets/Quillcard.png'});
-        enemies.push( enemy )
+    if( myGameArea.frames % Math.floor(Math.random()*900) == 0){
+        const enemy = new Character ({x:1350, y:650, width:100, height:100, strength:1, health:100, characterimg:'/assets/Quillcard.png'});
+        enemies.push(enemy)
+    }
+}
+
+function updateShoot() {
+    fire.forEach ((elem) => {
+        elem.x += 20
+        myGameArea.drawFire(elem);
+    })
+}
+
+function checkCrash() {
+    fire.forEach( (shoot,index) => {
+        enemies.forEach( (enemy,i) => {
+            if( enemy.name == 'Thanos' && ( shoot.x >= enemy.x  ) ){
+                thanos.health = thanos.health - hero.strength
+                fire.splice( index,1 )
+                if( thanos.health <= 0 ){
+                    enemies.splice( i,1 )
+                }
+            }else{
+                if( shoot.x >= enemy.x ){
+                    enemies.splice( i,1 )
+                    fire.splice( index,1 )
+                }
+                if( shoot.x > myGameArea.width ){
+                    fire.splice( index,1 )
+                }
+            }
+        })
+    })
+  }
+
+function createThanos () {
+    if(myGameArea.time === 15 && !thanosActive){
+        thanosActive = true
+        enemies.push( thanos )
+    }
+}
+
+function characterCrash() {
+    enemies.forEach((enemy) => {
+        if(enemy.x == hero.x ){
+            if( enemy.name !== "Thanos" ){
+                hero.health -=1;
+            }else{
+                hero.health = 0;
+            }
+        }
+    })
+}
+
+
+function gameOver(){
+    if (hero.health === 0) {
+        myGameArea.stop();
+        // alert() 
     }
 }
 
@@ -134,5 +215,21 @@ document.addEventListener('keydown', function(event) {
        if (hero.y > 0){
        hero.y = hero.y-20
        }
-   }
+    } else if (event.keyCode == 32){
+        fire.push(new Shoot(hero.x,hero.y))
+    }
   });
+
+
+  let actions = document.getElementById('actions')
+  actions.addEventListener('mouseover', () => {
+      document.getElementById('pause').classList.remove('no-show')
+      document.getElementById('pause2').classList.remove('no-show')
+      document.getElementById('pause3').classList.remove('no-show')
+  })
+
+  actions.addEventListener('mouseleave', () => {
+    document.getElementById('pause').classList.add('no-show')
+    document.getElementById('pause2').classList.add('no-show')
+    document.getElementById('pause3').classList.add('no-show')
+})

@@ -21,6 +21,8 @@
     position: absolute;
     top: 20px;
     right: 15px;
+    display: flex;
+    flex-direction: column;
 }
 
 .actions button{
@@ -39,4 +41,8 @@
     background-color: #E2025B;
     border: 2px solid #FFF;
     color: #FFF
+}
+
+.no-show{
+    display: none;
 }
