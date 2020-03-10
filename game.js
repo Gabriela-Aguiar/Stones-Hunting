@@ -121,6 +121,7 @@ const myGameArea = {
 myGameArea.start()
 myGameArea.drawBackground()
 
+
 const time = setInterval(() => {
     myGameArea.time++ 
 }, 1000);
@@ -224,12 +225,12 @@ document.addEventListener('keydown', function(event) {
   let actions = document.getElementById('actions')
   actions.addEventListener('mouseover', () => {
       document.getElementById('pause').classList.remove('no-show')
-      document.getElementById('pause2').classList.remove('no-show')
-      document.getElementById('pause3').classList.remove('no-show')
+      document.getElementById('play').classList.remove('no-show')
+      document.getElementById('home').classList.remove('no-show')
   })
 
   actions.addEventListener('mouseleave', () => {
     document.getElementById('pause').classList.add('no-show')
-    document.getElementById('pause2').classList.add('no-show')
-    document.getElementById('pause3').classList.add('no-show')
+    document.getElementById('play').classList.add('no-show')
+    document.getElementById('home').classList.add('no-show')
 })
