@@ -296,6 +296,37 @@ i:hover {
 #progress {
     height: 100%;
     background-color: #E2025B;
-    width: 49.8%;
+    width: 0;
     border-radius: 20px;
+}
+
+.transparente {
+    opacity:0.01;
+	-moz-opacity: 0.1;
+	filter: alpha(opacity=10);
+}
+
+.level{
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    bottom: 50px;
+    left: 50px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 22px;
+    text-align: center;
+}
+
+#easy {
+    text-shadow: 2px 0 0 #E2025B, -2px 0 0 #E2025B, 0 2px 0 #E2025B, 0 -2px 0 #E2025B, 1px 1px #E2025B, -1px -1px 0 #E2025B, 1px -1px 0 #E2025B, -1px 1px 0 #E2025B;
+    margin-bottom: 10px;
+}
+
+#medium {
+    text-shadow: 2px 0 0 #E2025B, -2px 0 0 #E2025B, 0 2px 0 #E2025B, 0 -2px 0 #E2025B, 1px 1px #E2025B, -1px -1px 0 #E2025B, 1px -1px 0 #E2025B, -1px 1px 0 #E2025B;
+    margin-bottom: 10px;
+}
+
+#hard {
+    text-shadow: 2px 0 0 #E2025B, -2px 0 0 #E2025B, 0 2px 0 #E2025B, 0 -2px 0 #E2025B, 1px 1px #E2025B, -1px -1px 0 #E2025B, 1px -1px 0 #E2025B, -1px 1px 0 #E2025B;
 }

@@ -8,6 +8,10 @@ let currentFrame = 0;
 let frameHero = 0;
 let urlImage = '';
 let urlBackground = '';
+let x1 = 1;
+let x2 = 1419
+let x3 = 0
+let thanosLife = 2.8;
 
 if(localStorage.getItem("character") == 'quill'){
     urlImage = '/assets/starlord.png'
@@ -38,8 +42,18 @@ if(localStorage.getItem("stone") == 'mind'){
 const hero = new Hero({x:80, y:550, width:200, height:200, strength:5, health:10, characterimg:urlImage, type:'hero', name:localStorage.getItem("character")})
 const thanos = new Character ({x:1350, y:450, width:200, height:300, strength: 10, health: 100, characterimg:'/assets/Thanos.5.png', name: 'Thanos', type:'boss'});
 
-
-var requestID = null;
+function level() {
+    if (localStorage.getItem("stone") == 'time' ||  localStorage.getItem("stone") == 'space') {
+        thanos.health = 175;
+        thanosLife = 1.6
+    } else if (localStorage.getItem("stone") == 'reality'|| localStorage.getItem("stone") == 'power') {
+        thanos.health = 250;
+        thanosLife = 1.1
+    }
+    console.log(thanos.health)
+}
+level();
+let requestID = null;
 
 const myGameArea = {
     canvas: document.createElement("canvas"),
@@ -52,19 +66,29 @@ const myGameArea = {
         this.context = this.canvas.getContext("2d");
         this.character = localStorage.getItem('character')
         principalSpace.appendChild(this.canvas)
-        requestID = window.requestAnimationFrame(updateGameArea)
+        requestID = window.requestAnimationFrame(updateGameArea);
     },
     clear: function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     },
-    stop: function() {
-        window.cancelAnimationFrame(requestID)
-        alert('GAME OVER')
-    },
     drawBackground: function(){
         const img = new Image()
         img.onload = () => {
+            // this.context.clearRect(0,0,1420,770)
             this.context.drawImage(img, 0, 0, 1420,770);
+
+            // this.context.drawImage(img, 0,770);
+            // this.context.drawImage(img, 0,0,1024,770);
+            // // ctx.drawImage(this.img, this.x, 0);
+            // // if (this.speed < 0) {
+            // //   ctx.drawImage(this.img, this.x + canvas.width, 0);
+            // // } else {
+            // //   ctx.drawImage(this.img, this.x - this.img.width, 0);
+            // // }
+
+            // this.context.drawImage(img, 0, 0, 1000,770);
+            // this.context.drawImage(img, 0, 0, 420,724 ,0,0,420,770);
+            // this.context.drawImage(img, 421, 0, 1424,724 ,421,0,1420,770);
             myGameArea.drawScore()
             myGameArea.drawCharacterName()
             myGameArea.drawThanosName()
@@ -73,7 +97,6 @@ const myGameArea = {
             myGameArea.drawTime()
             myGameArea.drawCharacter( hero )
             myGameArea.drawEnemies()
-
         };
         img.src = urlBackground;
     },
@@ -106,7 +129,7 @@ const myGameArea = {
         this.context.moveTo(970, 120);
         this.context.lineWidth = 30;
         this.context.lineCap = 'round';
-        this.context.lineTo((thanos.health*2.8)+970,120);
+        this.context.lineTo((thanos.health*thanosLife)+970,120);
         this.context.stroke();
         }
     },
@@ -197,6 +220,12 @@ const myGameArea = {
         this.context.lineTo(elem.x+20, elem.y);
         this.context.stroke();
     },
+
+    drawGameOver: function() {
+        this.context.font = "300px Fredoka One";
+        this.context.fillStyle = "#E2025B";
+        this.context.fillText('GAME OVER', 900, 400);
+    }
 }
 
 myGameArea.start()
@@ -274,7 +303,6 @@ function characterCrash() {
                 hero.health -= 1;
             }else{
                 hero.health = 0;
-                console.log('HEALTH ZERO')
             }
         }
     })
@@ -288,7 +316,7 @@ function updateFrame(){
 
 function gameOver(){
     if (hero.health === 0) {
-        myGameArea.stop();
+        myGameArea.drawGameOver();
     }
 }
 
