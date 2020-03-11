@@ -12,6 +12,8 @@ let x1 = 1;
 let x2 = 1419
 let x3 = 0
 let thanosLife = 2.8;
+let game_over = false;
+let stone_win = false;
 
 if(localStorage.getItem("character") == 'quill'){
     urlImage = '/assets/starlord.png'
@@ -60,6 +62,7 @@ const myGameArea = {
     frames: 0,
     time: 0,
     score: 0,
+    speed: -2,
     start: function() {
         this.canvas.width = 1420;
         this.canvas.height = 770;
@@ -71,24 +74,26 @@ const myGameArea = {
     clear: function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     },
+    stop: function (){
+        const overImg = new Image()
+        overImg.src = 'assets/gameOver.png'
+        overImg.onload = () => {
+            this.context.drawImage(overImg, 300, 0, 800,800);}
+        window.cancelAnimationFrame(requestID);
+        
+    },
+    win: function (){
+        const overImg = new Image()
+        overImg.src = 'assets/time.png'
+        overImg.onload = () => {
+            this.context.drawImage(overImg, 600, 200, 300,400);}
+        window.cancelAnimationFrame(requestID);
+        
+    },
     drawBackground: function(){
         const img = new Image()
         img.onload = () => {
-            // this.context.clearRect(0,0,1420,770)
             this.context.drawImage(img, 0, 0, 1420,770);
-
-            // this.context.drawImage(img, 0,770);
-            // this.context.drawImage(img, 0,0,1024,770);
-            // // ctx.drawImage(this.img, this.x, 0);
-            // // if (this.speed < 0) {
-            // //   ctx.drawImage(this.img, this.x + canvas.width, 0);
-            // // } else {
-            // //   ctx.drawImage(this.img, this.x - this.img.width, 0);
-            // // }
-
-            // this.context.drawImage(img, 0, 0, 1000,770);
-            // this.context.drawImage(img, 0, 0, 420,724 ,0,0,420,770);
-            // this.context.drawImage(img, 421, 0, 1424,724 ,421,0,1420,770);
             myGameArea.drawScore()
             myGameArea.drawCharacterName()
             myGameArea.drawThanosName()
@@ -154,7 +159,7 @@ const myGameArea = {
                 sY = 48
             }
 
-            if( character.type !== 'boss' ){
+            if(character.type !== 'boss'){
                 if(character.name == 'drax'){
                     if(frameHero == 0){
                         this.context.drawImage(img, 0,112,40,56,character.x, character.y, character.width,character.height);
@@ -188,7 +193,7 @@ const myGameArea = {
                 if(frameHero == 0){
                     this.context.drawImage(img,0,48,48,48,character.x, character.y, character.width,character.height);
                     frameHero++
-                }else if(frameHero == 1){
+                }else if(frameHero == 2){
                     this.context.drawImage(img,48,48,48,48,character.x, character.y, character.width,character.height);
                     frameHero++
                 }else{
@@ -220,12 +225,6 @@ const myGameArea = {
         this.context.lineTo(elem.x+20, elem.y);
         this.context.stroke();
     },
-
-    drawGameOver: function() {
-        this.context.font = "300px Fredoka One";
-        this.context.fillStyle = "#E2025B";
-        this.context.fillText('GAME OVER', 900, 400);
-    }
 }
 
 myGameArea.start()
@@ -236,8 +235,6 @@ const time = setInterval(() => {
 }, 1000);
 
 function updateGameArea() {
-    //  console.log('time')
-    //myGameArea.clear();
     myGameArea.drawBackground()
     myGameArea.frames++
     creatingEnemies();
@@ -247,8 +244,11 @@ function updateGameArea() {
     characterCrash();
     gameOver();
     requestID = window.requestAnimationFrame(updateGameArea);
+    if(game_over == true || stone_win == true) {
+        cancelAnimationFrame(requestID)
+        // window.location.href = 'index.html'
+    }
 }
-
 function creatingEnemies() {
     if( myGameArea.frames % Math.floor(Math.random()*900) == 0){
         const enemy = new Character ({x:1350, y:550, width:200, height:200, strength:1, health:100, characterimg:'/assets/alien.png', type:'enemies'});
@@ -290,7 +290,7 @@ function checkCrash() {
 
 
 function createThanos () {
-    if(myGameArea.time === 15 && !thanosActive){
+    if(myGameArea.time === 10 && !thanosActive){
         thanosActive = true
         enemies.push( thanos )
     }
@@ -316,7 +316,11 @@ function updateFrame(){
 
 function gameOver(){
     if (hero.health === 0) {
-        myGameArea.drawGameOver();
+        game_over = true;
+        myGameArea.stop();
+    } else if (thanos.health === 0){
+        stone_win = true;
+        myGameArea.win();
     }
 }
 

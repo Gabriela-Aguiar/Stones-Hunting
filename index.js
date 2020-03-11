@@ -35,6 +35,14 @@ stones.forEach((stone) => {
     }
 })
 
+function stoneScore (){
+    if (thanos.health == 0 && hero.health > 0) {
+        stones.push(localStorage.getItem(stone));
+    }
+}
+
+stoneScore();
+
 document.getElementById('progress').style.width = (16.6 * stones.length) + '%';
 document.getElementById('percent').innerHTML = stones.length;
 
