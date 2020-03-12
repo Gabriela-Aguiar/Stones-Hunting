@@ -115,7 +115,7 @@ characterSelected();
 
 const stoneSelected = (stone) => {
     localStorage.setItem('stone', stone)
-    window.location.href = "/game.html"
+    window.location.href = "game.html"
 };
 
 document.getElementById('mind').addEventListener('mouseover', ()=>{
