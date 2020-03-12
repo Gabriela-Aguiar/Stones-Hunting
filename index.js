@@ -1,7 +1,5 @@
-// document.getElementById('main_song').play();
-
-
-
+let soundGame = new Audio ();
+soundGame.src = 'assets/main.mp3'
 
 const characters = ['rocket', 'quill', 'gamora', 'drax'];
 let stones = [];
@@ -14,8 +12,8 @@ if(localStorage.getItem('stones') !== null){
 const ref = localStorage.getItem('ref');
 const readStones = JSON.parse(localStorage.getItem('stones'));
 
-
 if(ref == 'game'){
+    soundGame.play()
     document.getElementById('first').classList.add('no-show')
     document.getElementById('second').classList.add('no-show')
     document.getElementById('third').classList.remove('no-show')
@@ -48,6 +46,7 @@ stones.forEach((stone) => {
     } else if (stone === 'power') {
         document.getElementById("reality").classList.remove("transparente")
         document.getElementById('sixthStone').src='assets/reality.png';
+        soundGame.pause();
     }
 });
 

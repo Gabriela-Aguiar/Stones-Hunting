@@ -16,7 +16,6 @@ let game_over = false;
 let stone_win = false;
 let stoneMission = '';
 
-document.getElementById("game_song").play();
 
 if(localStorage.getItem("character") == 'quill'){
     urlImage = 'assets/starlord.png'
