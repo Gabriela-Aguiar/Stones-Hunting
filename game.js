@@ -1,7 +1,7 @@
-const principalSpace = document.getElementById('principal')
+const principalSpace = document.getElementById('principal');
 const enemies = [];
 const fire = [];
-let thanosActive = false
+let thanosActive = false;
 let srcX;
 let srcY;
 let currentFrame = 0;
@@ -9,11 +9,12 @@ let frameHero = 0;
 let urlImage = '';
 let urlBackground = '';
 let x1 = 1;
-let x2 = 1419
-let x3 = 0
+let x2 = 1419;
+let x3 = 0;
 let thanosLife = 2.8;
 let game_over = false;
 let stone_win = false;
+let stoneMission = '';
 
 if(localStorage.getItem("character") == 'quill'){
     urlImage = '/assets/starlord.png'
@@ -23,25 +24,31 @@ if(localStorage.getItem("character") == 'quill'){
     urlImage = '/assets/rocket.png'
 } else {
     urlImage = '/assets/drax.png'
-}
+};
 
 if(localStorage.getItem("stone") == 'mind'){
     urlBackground = 'assets/planet1.jpg'
+    stoneMission = 'assets/mind.png'
 } else if(localStorage.getItem("stone") == 'soul'){
     urlBackground = 'assets/planet4.jpg'
+    stoneMission = 'assets/soul.png'
 } else if(localStorage.getItem("stone") == 'time'){
     urlBackground = 'assets/planet2.jpg'
+    stoneMission = 'assets/time.png'
 } else if(localStorage.getItem("stone") == 'space'){
     urlBackground = 'assets/planet6.jpeg'
+    stoneMission = 'assets/space.png'
 } else if(localStorage.getItem("stone") == 'reality'){
     urlBackground = 'assets/planet5.jpeg'
+    stoneMission = 'assets/reality.png'
 } else if (localStorage.getItem("stone") == 'power'){
     urlBackground = 'assets/planet3.jpeg'
-}
+    stoneMission = 'assets/power.png'
+};
 
 
 
-const hero = new Hero({x:80, y:550, width:200, height:200, strength:5, health:10, characterimg:urlImage, type:'hero', name:localStorage.getItem("character")})
+const hero = new Hero({x:80, y:550, width:200, height:200, strength:5, health:10, characterimg:urlImage, type:'hero', name:localStorage.getItem("character")});
 const thanos = new Character ({x:1350, y:450, width:200, height:300, strength: 10, health: 100, characterimg:'/assets/Thanos.5.png', name: 'Thanos', type:'boss'});
 
 function level() {
@@ -53,10 +60,9 @@ function level() {
         thanosLife = 1.1
     }
     console.log(thanos.health)
-}
+};
 level();
 let requestID = null;
-
 const myGameArea = {
     canvas: document.createElement("canvas"),
     frames: 0,
@@ -78,16 +84,31 @@ const myGameArea = {
         const overImg = new Image()
         overImg.src = 'assets/gameOver.png'
         overImg.onload = () => {
-            this.context.drawImage(overImg, 300, 0, 800,800);}
+            this.context.drawImage(overImg, 300, 0, 800,700);
+        }
         window.cancelAnimationFrame(requestID);
+        setTimeout(function() {
+            localStorage.setItem("ref", "game")
+            window.location.href = 'index.html'
+        }, 3000)
         
     },
     win: function (){
         const overImg = new Image()
-        overImg.src = 'assets/time.png'
+        overImg.src = stoneMission
         overImg.onload = () => {
             this.context.drawImage(overImg, 600, 200, 300,400);}
         window.cancelAnimationFrame(requestID);
+        setTimeout(function() {
+            localStorage.setItem("ref", "game")
+            let actualStone = [];
+            if(localStorage.getItem('stones') !== null ){
+                actualStone = JSON.parse(localStorage.getItem('stones'))
+            };
+            actualStone.push(localStorage.getItem('stone'));
+            localStorage.setItem('stones', JSON.stringify(actualStone))
+            window.location.href = 'index.html'
+        }, 3000)
         
     },
     drawBackground: function(){
@@ -225,10 +246,10 @@ const myGameArea = {
         this.context.lineTo(elem.x+20, elem.y);
         this.context.stroke();
     },
-}
+};
 
-myGameArea.start()
-myGameArea.drawBackground()
+myGameArea.start();
+myGameArea.drawBackground();
 
 const time = setInterval(() => {
     myGameArea.time++ 
@@ -248,22 +269,21 @@ function updateGameArea() {
         cancelAnimationFrame(requestID)
         // window.location.href = 'index.html'
     }
-}
+};
+
 function creatingEnemies() {
     if( myGameArea.frames % Math.floor(Math.random()*900) == 0){
         const enemy = new Character ({x:1350, y:550, width:200, height:200, strength:1, health:100, characterimg:'/assets/alien.png', type:'enemies'});
         enemies.push(enemy)
     }
-}
+};
 
 function updateShoot() {
     fire.forEach ((elem) => {
         elem.x += 20
         myGameArea.drawFire(elem);
     })
-}
-
-
+};
 
 function checkCrash() {
     fire.forEach( (shoot,index) => {
@@ -286,15 +306,14 @@ function checkCrash() {
             }
         }) 
     })
-  }
-
+  };
 
 function createThanos () {
     if(myGameArea.time === 10 && !thanosActive){
         thanosActive = true
         enemies.push( thanos )
     }
-}
+};
 
 function characterCrash() {
     enemies.forEach((enemy) => {
@@ -306,7 +325,7 @@ function characterCrash() {
             }
         }
     })
-}
+};
 
 function updateFrame(){
     currentFrame = ++currentFrame % frameCount;
@@ -322,7 +341,17 @@ function gameOver(){
         stone_win = true;
         myGameArea.win();
     }
-}
+};
+
+document.getElementById('pause').addEventListener('click', function(){
+    window.cancelAnimationFrame(requestID);
+})
+
+document.getElementById('play').addEventListener('click', function(){
+    requestID = 0;
+    myGameArea.start();
+})
+
 
 document.addEventListener('keydown', function(event) {
    if(event.keyCode == 39) {
@@ -348,10 +377,10 @@ document.addEventListener('keydown', function(event) {
       document.getElementById('pause').classList.remove('no-show')
       document.getElementById('play').classList.remove('no-show')
       document.getElementById('home').classList.remove('no-show')
-  })
+  });
 
   actions.addEventListener('mouseleave', () => {
     document.getElementById('pause').classList.add('no-show')
     document.getElementById('play').classList.add('no-show')
     document.getElementById('home').classList.add('no-show')
-})
+});

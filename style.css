@@ -21,12 +21,12 @@ main {
 }
 
 .title h1 {
-    margin-left: 80px;
+    margin-left: 40px;
     color: #FFF;
-    font-family: 'Fredoka One', cursive;
+    font-family: 'Bungee Shade', cursive;
     text-align: center;
     font-size: 80px;
-    margin-bottom: 40%;
+    margin-bottom: 50%;
     transform: rotate(-30deg);
     text-shadow: 2px 0 0 #7037d8, -2px 0 0 #7037d8, 0 2px 0 #7037d8, 0 -2px 0 #7037d8, 1px 1px #7037d8, -1px -1px 0 #7037d8, 1px -1px 0 #7037d8, -1px 1px 0 #7037d8;
 }

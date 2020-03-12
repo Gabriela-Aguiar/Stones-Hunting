@@ -1,20 +1,32 @@
-const characters = ['rocket', 'quill', 'gamora', 'drax']
-const stones = []
+const characters = ['rocket', 'quill', 'gamora', 'drax'];
+let stones = [];
 
-localStorage.setItem('stones', JSON.stringify(stones))
+if(localStorage.getItem('stones') !== null){
+    stones = JSON.parse(localStorage.getItem('stones'))
+    console.log(stones);
+};
 
+
+const ref = localStorage.getItem('ref');
 const readStones = JSON.parse(localStorage.getItem('stones'));
-console.log(readStones);
 
-document.getElementById('mind').classList.remove('transparente')
-document.getElementById('soul').classList.remove('transparente')
-document.getElementById('space').classList.remove('transparente')
-document.getElementById('time').classList.remove('transparente')
-document.getElementById('power').classList.remove('transparente')
-document.getElementById('reality').classList.remove('transparente')
+
+if(ref == 'game'){
+    document.getElementById('first').classList.add('no-show')
+    document.getElementById('second').classList.add('no-show')
+    document.getElementById('third').classList.remove('no-show')
+};
+
+document.getElementById('mind').classList.remove('transparente');
+document.getElementById('soul').classList.remove('transparente');
+document.getElementById('space').classList.remove('transparente');
+document.getElementById('time').classList.remove('transparente');
+document.getElementById('power').classList.remove('transparente');
+document.getElementById('reality').classList.remove('transparente');
 
 stones.forEach((stone) => {
     if(stone === 'mind') {
+        console.log('entra');
         document.getElementById("mind").classList.add("transparente")
         document.getElementById('firstStone').src='assets/mind.png';
     } else if (stone === 'soul') {
@@ -33,15 +45,15 @@ stones.forEach((stone) => {
         document.getElementById("reality").classList.remove("transparente")
         document.getElementById('sixthStone').src='assets/reality.png';
     }
-})
+});
 
-function stoneScore (){
-    if (thanos.health == 0 && hero.health > 0) {
-        stones.push(localStorage.getItem(stone));
-    }
-}
+// function stoneScore (){
+//     if (thanos.health == 0) {
+//         stones.push(localStorage.getItem(stone));
+//     }
+// }
 
-stoneScore();
+// stoneScore();
 
 document.getElementById('progress').style.width = (16.6 * stones.length) + '%';
 document.getElementById('percent').innerHTML = stones.length;
@@ -57,7 +69,7 @@ const character = character => {
  localStorage.setItem('character',character)
  step('second','third')
  characterSelected()
-}
+};
 
 const random = () => {
     let finalCharacter = '';
@@ -83,7 +95,7 @@ const random = () => {
           }, 2000)
       }
     }, 100);
-}
+};
 
 const characterSelected = () => {
     const people = localStorage.getItem('character')
@@ -93,14 +105,14 @@ const characterSelected = () => {
             document.getElementById(characters[i] + "-photo").classList.add('no-show')
         }
     }
-}
+};
 
-characterSelected()
+characterSelected();
 
 const stoneSelected = (stone) => {
     localStorage.setItem('stone', stone)
     window.location.href = "/game.html"
-}
+};
 
 document.getElementById('mind').addEventListener('mouseover', ()=>{
     document.getElementById('easy').style.color = 'greenyellow';
