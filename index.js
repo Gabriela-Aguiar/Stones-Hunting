@@ -1,3 +1,8 @@
+document.getElementById('main_song').play();
+
+
+
+
 const characters = ['rocket', 'quill', 'gamora', 'drax'];
 let stones = [];
 
@@ -5,7 +10,6 @@ if(localStorage.getItem('stones') !== null){
     stones = JSON.parse(localStorage.getItem('stones'))
     console.log(stones);
 };
-
 
 const ref = localStorage.getItem('ref');
 const readStones = JSON.parse(localStorage.getItem('stones'));

@@ -49,18 +49,18 @@
                          </div>
                     </div>
                     <div class="upstones">
-                        <img src="/assets/stone.png" alt="stone" id ="firstStone" class="stonekeeper">
-                        <img src="/assets/stone.png" alt="stone" id ="secondStone" class="stonekeeper">
-                        <img src="/assets/stone.png" alt="stone" id ="thirdStone" class="stonekeeper">
-                        <img src="/assets/stone.png" alt="stone" id ="fourthStone" class="stonekeeper">
-                        <img src="/assets/stone.png" alt="stone" id ="fiftyStone" class="stonekeeper">
-                        <img src="/assets/stone.png" alt="stone" id ="sixthStone" class="stonekeeper">
+                        <img src="assets/stone.png" alt="stone" id ="firstStone" class="stonekeeper">
+                        <img src="assets/stone.png" alt="stone" id ="secondStone" class="stonekeeper">
+                        <img src="assets/stone.png" alt="stone" id ="thirdStone" class="stonekeeper">
+                        <img src="assets/stone.png" alt="stone" id ="fourthStone" class="stonekeeper">
+                        <img src="assets/stone.png" alt="stone" id ="fiftyStone" class="stonekeeper">
+                        <img src="assets/stone.png" alt="stone" id ="sixthStone" class="stonekeeper">
                     </div>
                     <div class="card">
-                        <img src="/assets/Rocketcard.png" alt="rocketcard" id="rocket-photo" >
-                        <img src="/assets/Quillcard.png" alt="quillcard" id="quill-photo" >
-                        <img src="/assets/Gamoracard.png" alt="gamoracard" id="gamora-photo" >
-                        <img src="/assets/Draxcard.png" alt="draaxcard" id="drax-photo" >
+                        <img src="assets/Rocketcard.png" alt="rocketcard" id="rocket-photo" >
+                        <img src="assets/Quillcard.png" alt="quillcard" id="quill-photo" >
+                        <img src="assets/Gamoracard.png" alt="gamoracard" id="gamora-photo" >
+                        <img src="assets/Draxcard.png" alt="draaxcard" id="drax-photo" >
                     </div>
                     <div class="level">
                         <h1 id="easy">EASY</h1>
@@ -69,12 +69,12 @@
                     </div>
                 </div>
                 <div>
-                    <img src="/assets/mind.png" alt="mind-stone" id="mind" class="stone transparente" onclick="stoneSelected('mind')">
-                    <img src="/assets/soul.png" alt="soul-stone" id="soul" class="stone transparente" onclick="stoneSelected('soul')">
-                    <img src="/assets/space.png" alt="space-stone" id="space" class="stone transparente" onclick="stoneSelected('space')">
-                    <img src="/assets/time.png" alt="time-stone" id="time" class="stone transparente" onclick="stoneSelected('time')">
-                    <img src="/assets/reality.png" alt="reality-stone" id="reality" class="stone transparente" onclick="stoneSelected('reality')">
-                    <img src="/assets/power.png" alt="power-stone" id="power" class="stone transparente" onclick="stoneSelected('power')">
+                    <img src="assets/mind.png" alt="mind-stone" id="mind" class="stone transparente" onclick="stoneSelected('mind')">
+                    <img src="assets/soul.png" alt="soul-stone" id="soul" class="stone transparente" onclick="stoneSelected('soul')">
+                    <img src="assets/space.png" alt="space-stone" id="space" class="stone transparente" onclick="stoneSelected('space')">
+                    <img src="assets/time.png" alt="time-stone" id="time" class="stone transparente" onclick="stoneSelected('time')">
+                    <img src="assets/reality.png" alt="reality-stone" id="reality" class="stone transparente" onclick="stoneSelected('reality')">
+                    <img src="assets/power.png" alt="power-stone" id="power" class="stone transparente" onclick="stoneSelected('power')">
                     <div class="progress-space">
                         <h1>PROGRESS</h1>
                         <div class="progress-bar">
@@ -84,6 +84,11 @@
                     </div>
                 </div>
             </section>
+    <audio autoplay controls id='main_song'>
+        <source src="assets/main.mp3"> 
+    </audio>
     <script src="index.js"></script>
+    <iframe src="assets/main.mp3" allow="autoplay" style="display:none" id="iframeAudio">
+    </iframe> 
 </body>
 </html>
