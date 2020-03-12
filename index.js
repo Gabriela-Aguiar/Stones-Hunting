@@ -13,7 +13,9 @@ const ref = localStorage.getItem('ref');
 const readStones = JSON.parse(localStorage.getItem('stones'));
 
 if(ref == 'game'){
-    soundGame.play()
+    soundGame.onload = () => {
+        soundGame.play()
+    }
     document.getElementById('first').classList.add('no-show')
     document.getElementById('second').classList.add('no-show')
     document.getElementById('third').classList.remove('no-show')
