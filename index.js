@@ -1,4 +1,4 @@
-document.getElementById('main_song').play();
+// document.getElementById('main_song').play();
 
 
 
