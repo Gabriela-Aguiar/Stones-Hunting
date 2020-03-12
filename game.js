@@ -19,13 +19,13 @@ let stoneMission = '';
 document.getElementById("game_song").play();
 
 if(localStorage.getItem("character") == 'quill'){
-    urlImage = '/assets/starlord.png'
+    urlImage = 'assets/starlord.png'
 } else if(localStorage.getItem("character") == 'gamora'){
-    urlImage = '/assets/gamora.png'
+    urlImage = 'assets/gamora.png'
 } else if(localStorage.getItem("character") == 'rocket'){
-    urlImage = '/assets/rocket.png'
+    urlImage = 'assets/rocket.png'
 } else {
-    urlImage = '/assets/drax.png'
+    urlImage = 'assets/drax.png'
 };
 
 if(localStorage.getItem("stone") == 'mind'){
@@ -51,7 +51,7 @@ if(localStorage.getItem("stone") == 'mind'){
 
 
 const hero = new Hero({x:80, y:550, width:200, height:200, strength:5, health:10, characterimg:urlImage, type:'hero', name:localStorage.getItem("character")});
-const thanos = new Character ({x:1350, y:450, width:200, height:300, strength: 10, health: 100, characterimg:'/assets/Thanos.5.png', name: 'Thanos', type:'boss'});
+const thanos = new Character ({x:1350, y:450, width:200, height:300, strength: 10, health: 100, characterimg:'assets/Thanos.5.png', name: 'Thanos', type:'boss'});
 
 function level() {
     if (localStorage.getItem("stone") == 'time' ||  localStorage.getItem("stone") == 'space') {
@@ -275,7 +275,7 @@ function updateGameArea() {
 
 function creatingEnemies() {
     if( myGameArea.frames % Math.floor(Math.random()*900) == 0){
-        const enemy = new Character ({x:1350, y:550, width:200, height:200, strength:1, health:100, characterimg:'/assets/alien.png', type:'enemies'});
+        const enemy = new Character ({x:1350, y:550, width:200, height:200, strength:1, health:100, characterimg:'assets/alien.png', type:'enemies'});
         enemies.push(enemy)
     }
 };
