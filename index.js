@@ -1,5 +1,13 @@
-let soundGame = new Audio ();
-soundGame.src = 'assets/main.mp3'
+let play = true 
+document.addEventListener('click', () => {
+    if( play ){
+        let soundGame = new Audio ();
+        soundGame.src = 'assets/main.mp3'
+        soundGame.loop = true
+        soundGame.play();
+        play = false;
+    }
+});
 
 const characters = ['rocket', 'quill', 'gamora', 'drax'];
 let stones = [];
@@ -13,9 +21,6 @@ const ref = localStorage.getItem('ref');
 const readStones = JSON.parse(localStorage.getItem('stones'));
 
 if(ref == 'game'){
-    soundGame.onload = () => {
-        soundGame.play()
-    }
     document.getElementById('first').classList.add('no-show')
     document.getElementById('second').classList.add('no-show')
     document.getElementById('third').classList.remove('no-show')

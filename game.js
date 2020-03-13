@@ -16,6 +16,16 @@ let game_over = false;
 let stone_win = false;
 let stoneMission = '';
 
+let play = true 
+document.addEventListener('click', () => {
+    if( play ){
+        let soundGame = new Audio ();
+        soundGame.src = 'assets/game.mp3'
+        soundGame.loop = true
+        soundGame.play();
+        play = false;
+    }
+});
 
 if(localStorage.getItem("character") == 'quill'){
     urlImage = 'assets/starlord.png'
