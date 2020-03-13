@@ -1,6 +1,6 @@
 let play = true 
 document.addEventListener('click', () => {
-    if( play ){
+    if(play){
         let soundGame = new Audio ();
         soundGame.src = 'assets/instructions.mp3'
         soundGame.loop = true

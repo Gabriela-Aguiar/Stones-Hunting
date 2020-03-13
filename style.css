@@ -166,6 +166,35 @@ i:hover {
     cursor: pointer;
 }
 
+.selectCharacter {
+    position: absolute;
+    width: 100px;
+    bottom: 200px;
+    right: 100px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 22px;
+    text-align: center;
+}
+
+#selectRocket {
+    text-shadow: 2px 0 0 #E2025B, -2px 0 0 #E2025B, 0 2px 0 #E2025B, 0 -2px 0 #E2025B, 1px 1px #E2025B, -1px -1px 0 #E2025B, 1px -1px 0 #E2025B, -1px 1px 0 #E2025B;
+    margin-bottom: 10px;
+}
+
+#selectQuill {
+    text-shadow: 2px 0 0 #E2025B, -2px 0 0 #E2025B, 0 2px 0 #E2025B, 0 -2px 0 #E2025B, 1px 1px #E2025B, -1px -1px 0 #E2025B, 1px -1px 0 #E2025B, -1px 1px 0 #E2025B;
+    margin-bottom: 10px;
+}
+
+#selectGamora {
+    text-shadow: 2px 0 0 #E2025B, -2px 0 0 #E2025B, 0 2px 0 #E2025B, 0 -2px 0 #E2025B, 1px 1px #E2025B, -1px -1px 0 #E2025B, 1px -1px 0 #E2025B, -1px 1px 0 #E2025B;
+}
+
+#selectDrax {
+    text-shadow: 2px 0 0 #E2025B, -2px 0 0 #E2025B, 0 2px 0 #E2025B, 0 -2px 0 #E2025B, 1px 1px #E2025B, -1px -1px 0 #E2025B, 1px -1px 0 #E2025B, -1px 1px 0 #E2025B;
+}
+
+
 /* MAP SECTION*/
 
 .map {

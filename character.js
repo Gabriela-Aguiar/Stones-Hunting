@@ -34,14 +34,3 @@ class Shoot {
 
 
 
-// class Object {
-//     constructor(objValues){
-//         let objValues = {x, y, height, width, disappear, sum};
-//         this.x = x;
-//         this.y = y,
-//         this.height = height;
-//         this.width = this.width;
-//         this.disappear = this.disappear;
-//         this.sum = sum;
-//     }
-// }

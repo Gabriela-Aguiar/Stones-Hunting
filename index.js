@@ -1,6 +1,6 @@
-let play = true 
+let play = true;
 document.addEventListener('click', () => {
-    if( play ){
+    if(play){
         let soundGame = new Audio ();
         soundGame.src = 'assets/main.mp3'
         soundGame.loop = true
@@ -14,7 +14,6 @@ let stones = [];
 
 if(localStorage.getItem('stones') !== null){
     stones = JSON.parse(localStorage.getItem('stones'))
-    console.log(stones);
 };
 
 const ref = localStorage.getItem('ref');
@@ -35,7 +34,6 @@ document.getElementById('reality').classList.remove('transparente');
 
 stones.forEach((stone) => {
     if(stone === 'mind') {
-        console.log('entra');
         document.getElementById("mind").classList.add("transparente")
         document.getElementById('firstStone').src='assets/mind.png';
     } else if (stone === 'soul') {
@@ -57,18 +55,8 @@ stones.forEach((stone) => {
     }
 });
 
-// function stoneScore (){
-//     if (thanos.health == 0) {
-//         stones.push(localStorage.getItem(stone));
-//     }
-// }
-
-// stoneScore();
-
 document.getElementById('progress').style.width = (16.6 * stones.length) + '%';
 document.getElementById('percent').innerHTML = stones.length;
-
-
 
 const step = (actual, next) => {
     document.getElementById(actual).classList.add("no-show")
@@ -160,4 +148,30 @@ document.getElementById('reality').addEventListener('mouseleave', ()=>{
 });
 document.getElementById('power').addEventListener('mouseleave', ()=>{
     document.getElementById('hard').style.color = '';
+});
+
+document.getElementById('rocket').addEventListener('mouseover', ()=>{
+    document.getElementById('selectRocket').style.color = '#ff9966';
+});
+document.getElementById('quill').addEventListener('mouseover', ()=>{
+    document.getElementById('selectQuill').style.color = '#cc66ff';
+});
+document.getElementById('gamora').addEventListener('mouseover', ()=>{
+    document.getElementById('selectGamora').style.color = '#00ff99';
+});
+document.getElementById('drax').addEventListener('mouseover', ()=>{
+    document.getElementById('selectDrax').style.color = '#ff5050';
+});
+
+document.getElementById('rocket').addEventListener('mouseleave', ()=>{
+    document.getElementById('selectRocket').style.color = '';
+});
+document.getElementById('quill').addEventListener('mouseleave', ()=>{
+    document.getElementById('selectQuill').style.color = '';
+});
+document.getElementById('gamora').addEventListener('mouseleave', ()=>{
+    document.getElementById('selectGamora').style.color = '';
+});
+document.getElementById('drax').addEventListener('mouseleave', ()=>{
+    document.getElementById('selectDrax').style.color = '';
 });

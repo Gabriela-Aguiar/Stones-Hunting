@@ -19,7 +19,7 @@
     display: flex;
 } 
 
-#instructions h1{
+#instructions h1 {
     font-family: 'Fredoka One', cursive;
     margin-top: 50px;
     margin-left: 150px;
@@ -40,6 +40,11 @@ i {
     font-family: 'Fredoka One', cursive;
     color: #E2025B;
     padding: 0 20px;
+}
+
+.back i:hover {
+    cursor: pointer;
+    font-size: 55px;
 }
 
 .arrows h1 {

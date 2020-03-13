@@ -16,10 +16,10 @@ let game_over = false;
 let stone_win = false;
 let stoneMission = '';
 
-let play = true 
+let play = true ;
+let soundGame = new Audio();
 document.addEventListener('click', () => {
-    if( play ){
-        let soundGame = new Audio ();
+    if(play){
         soundGame.src = 'assets/game.mp3'
         soundGame.loop = true
         soundGame.play();
@@ -57,9 +57,8 @@ if(localStorage.getItem("stone") == 'mind'){
     stoneMission = 'assets/power.png'
 };
 
-
-
 const hero = new Hero({x:80, y:550, width:200, height:200, strength:5, health:10, characterimg:urlImage, type:'hero', name:localStorage.getItem("character")});
+
 const thanos = new Character ({x:1350, y:450, width:200, height:300, strength: 10, health: 100, characterimg:'assets/Thanos.5.png', name: 'Thanos', type:'boss'});
 
 function level() {
@@ -70,10 +69,12 @@ function level() {
         thanos.health = 250;
         thanosLife = 1.1
     }
-    console.log(thanos.health)
 };
+
 level();
+
 let requestID = null;
+
 const myGameArea = {
     canvas: document.createElement("canvas"),
     frames: 0,
@@ -100,7 +101,7 @@ const myGameArea = {
         window.cancelAnimationFrame(requestID);
         setTimeout(function() {
             localStorage.setItem("ref", "game")
-            window.location.href = 'index.html'
+            // window.location.href = 'index.html'
         }, 3000)
         
     },
@@ -181,7 +182,6 @@ const myGameArea = {
     },
     drawCharacter: function( character ){
         const img = new Image();
-        // console.log( requestID )
         let sY = 0
         img.onload = () => {
 
@@ -278,7 +278,6 @@ function updateGameArea() {
     requestID = window.requestAnimationFrame(updateGameArea);
     if(game_over == true || stone_win == true) {
         cancelAnimationFrame(requestID)
-        // window.location.href = 'index.html'
     }
 };
 
@@ -320,7 +319,7 @@ function checkCrash() {
   };
 
 function createThanos () {
-    if(myGameArea.time === 10 && !thanosActive){
+    if(myGameArea.time === 2 && !thanosActive){
         thanosActive = true
         enemies.push( thanos )
     }
@@ -342,26 +341,31 @@ function updateFrame(){
     currentFrame = ++currentFrame % frameCount;
     srcX = currentFrame * width;
     srcY = 0;
-}
+};
 
 function gameOver(){
     if (hero.health === 0) {
+        let over = new Audio();
+        over.src = 'assets/over.mp3'
+        soundGame.pause()
+        over.play()
         game_over = true;
         myGameArea.stop();
     } else if (thanos.health === 0){
         stone_win = true;
         myGameArea.win();
     }
+    
 };
 
 document.getElementById('pause').addEventListener('click', function(){
     window.cancelAnimationFrame(requestID);
-})
+});
 
 document.getElementById('play').addEventListener('click', function(){
     requestID = 0;
     myGameArea.start();
-})
+});
 
 
 document.addEventListener('keydown', function(event) {
@@ -379,6 +383,9 @@ document.addEventListener('keydown', function(event) {
        }
     } else if (event.keyCode == 32){
         fire.push(new Shoot(hero.x,hero.y))
+        let shoot = new Audio();
+        shoot.src = 'assets/laser.mp3'
+        shoot.play()
     }
   });
 
